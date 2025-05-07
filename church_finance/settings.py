@@ -69,5 +69,7 @@ STATICFILES_DIRS = [BASE_DIR / 'static']  # Utilisé pour le développement
 STATIC_ROOT = BASE_DIR / 'staticfiles'   # Obligatoire pour Render collectstatic
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-LOGIN_URL = '/login/'  # Redirige vers ta page de connexion personnalisée
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/login/'
 
