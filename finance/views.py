@@ -4,6 +4,21 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from .models import Budget, Projet, Transaction
 from .forms import BudgetForm, ProjetForm, TransactionForm
+from django.contrib.auth import authenticate, login
+
+
+def connexion(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user:
+            login(request, user)
+            return redirect('dashboard')
+        else:
+            return render(request, 'login.html', {'error': 'Identifiants invalides'})
+    return render(request, 'login.html')
+
 
 def ajouter_ou_modifier(request, form_class, model_class, template, success_message, redirect_url, pk=None):
     instance = None
