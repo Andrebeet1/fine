@@ -32,14 +32,17 @@ class ProjetForm(forms.ModelForm):
 class TransactionForm(forms.ModelForm):
     class Meta:
         model = Transaction
-        fields = ['date', 'type', 'montant', 'description', 'projet']
-        widgets = {
-            'date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
-            'type': forms.Select(attrs={'class': 'form-control'}),
-            'montant': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Montant de la transaction'}),
-            'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Description de la transaction'}),
-            'projet': forms.Select(attrs={'class': 'form-control'}),
-        }
+        exclude = ['date']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance and self.instance.pk:
+            self.fields['date'] = forms.DateField(
+                initial=self.instance.date,
+                disabled=True,
+                required=False
+            )
+
 
     def clean_montant(self):
         montant = self.cleaned_data.get('montant')
