@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: gestion-finance-eglise
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn church_finance.wsgi --log-file -
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: ton_projet.settings
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: false
