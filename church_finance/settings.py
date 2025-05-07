@@ -1,12 +1,14 @@
-# church_finance/settings.py
 import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-your-secret-key'
-DEBUG = True
-ALLOWED_HOSTS = ['gestion-finances-eglise.onrender.com', '127.0.0.1']
+SECRET_KEY = 'django-insecure-your-secret-key'  # 🔐 Remplace ceci par une vraie clé secrète en prod
+
+DEBUG = False  # ❗ Met à False pour la production
+
+ALLOWED_HOSTS = ['gestion-finances-eglise.onrender.com']
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -54,14 +56,16 @@ DATABASES = {
     }
 }
 
-AUTH_PASSWORD_VALIDATORS = []
+AUTH_PASSWORD_VALIDATORS = []  # Tu peux ajouter des validateurs ici si nécessaire
 
 LANGUAGE_CODE = 'fr-fr'
 TIME_ZONE = 'Africa/Lubumbashi'
 USE_I18N = True
 USE_TZ = True
 
+# ⚠️ Configuration des fichiers statiques
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']
+STATICFILES_DIRS = [BASE_DIR / 'static']  # Utilisé pour le développement
+STATIC_ROOT = BASE_DIR / 'staticfiles'   # Obligatoire pour Render collectstatic
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
